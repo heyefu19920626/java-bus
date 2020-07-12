@@ -1,5 +1,7 @@
 package com.heyefu.login.controller;
 
+import com.heyefu.error.ErrorCode;
+import com.heyefu.response.RestCode;
 import com.heyefu.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,24 +30,24 @@ public class LoginController {
     @GetMapping("login")
     @ApiOperation("用户登录")
     @ResponseBody
-    public Object login(User user) {
+    public RestCode login(User user) {
         Map<String, Object> result = new HashMap<>();
         if (user != null && "123456".equals(user.getPassword())) {
             request.getSession().setAttribute("user", user);
             result.put("status", true);
-        } else {
-            result.put("status", false);
+            return new RestCode(ErrorCode.SUCCESS, null, result);
         }
-        return result;
+        result.put("status", false);
+        return new RestCode(ErrorCode.FAIL, "用户名或密码错误", result);
     }
 
     @GetMapping("logout")
     @ApiOperation("用户注销")
     @ResponseBody
-    public Object logout() {
+    public RestCode logout() {
         request.getSession().removeAttribute("user");
         Map<String, Object> result = new HashMap<>(1);
         result.put("status", true);
-        return result;
+        return new RestCode(ErrorCode.SUCCESS, null, result);
     }
 }

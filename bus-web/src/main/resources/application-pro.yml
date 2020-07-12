@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: ""
+logging:
+  file:
+    name: logs/bus.log
+spring:
+  jackson:
+    default-property-inclusion: non_null
