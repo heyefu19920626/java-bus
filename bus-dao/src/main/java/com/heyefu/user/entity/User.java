@@ -1,11 +1,11 @@
 package com.heyefu.user.entity;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
-import java.util.Map;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Tolerate;
 
 /**
  * Description:
@@ -14,15 +14,16 @@ import java.util.Map;
  * Create in: 2020-07-12
  * Time: 下午1:56
  **/
-@Controller
+@Getter
+@Setter
+@Builder
+@ApiModel
 public class User {
-
-    @GetMapping("user")
-    @ResponseBody
-    public Object getUser() {
-        Map<String, String> map = new HashMap<>();
-        map.put("name", "tang");
-        map.put("password", "123456");
-        return map;
+    @ApiModelProperty("用户名")
+    private String name;
+    @ApiModelProperty("密码")
+    private String password;
+    @Tolerate
+    public User() {
     }
 }

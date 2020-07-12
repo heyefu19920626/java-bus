@@ -55,10 +55,12 @@ subprojects {
 
     ext {
         swagger_version = '2.10.5'
+        lang3_version = '3.10'
     }
     // 所有子模块共有依赖
     dependencies {
         compileOnly 'org.projectlombok:lombok'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: "${lang3_version}"
         // 2.10开始支持两种模式：WebFlux，WebMVC,需要引入三个依赖
         compile "io.springfox:springfox-swagger2:${swagger_version}"
         compile "io.springfox:springfox-swagger-ui:${swagger_version}"
@@ -68,6 +70,7 @@ subprojects {
         //举个例子，A依赖B，B依赖C，如果B依赖C是使用的implementation依赖，那么在A中是访问不到C中的方法的，
         //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        annotationProcessor 'org.projectlombok:lombok'
         //testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }
