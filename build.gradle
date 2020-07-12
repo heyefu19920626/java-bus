@@ -42,8 +42,8 @@ subprojects {
     apply plugin: 'java' /* java是Gradle的核心插件，是内置的，内置插件不需要配置依赖路径 */
     // apply plugin: 'idea' /* 同上  让Gradle自动生成Intellij的项目文件*/
     /* 注意gradle插件不再自动应用，所以这里需要指定 */
-    //使用springboot插件
-    apply plugin: 'org.springframework.boot'
+    // 使用springboot插件，会继承到所有子模块，很多子模块会因为没有启动类而报错
+    // apply plugin: 'org.springframework.boot'
     // java编译的时候缺省状态下会因为中文字符而失败
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
     // 配置所有子模块的依赖仓库地址
@@ -54,12 +54,13 @@ subprojects {
     }
 
     ext {
+        spring_version = '2.3.1.RELEASE'
         swagger_version = '2.10.5'
         lang3_version = '3.10'
+        lombok_version = '1.18.12'
     }
     // 所有子模块共有依赖
     dependencies {
-        compileOnly 'org.projectlombok:lombok'
         compile group: 'org.apache.commons', name: 'commons-lang3', version: "${lang3_version}"
         // 2.10开始支持两种模式：WebFlux，WebMVC,需要引入三个依赖
         compile "io.springfox:springfox-swagger2:${swagger_version}"
@@ -69,8 +70,9 @@ subprojects {
         //implementation是取代之前的compile的，通过implementation依赖的库只能自己库本身访问，
         //举个例子，A依赖B，B依赖C，如果B依赖C是使用的implementation依赖，那么在A中是访问不到C中的方法的，
         //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        annotationProcessor 'org.projectlombok:lombok'
+        compile "org.springframework.boot:spring-boot-starter-web:${spring_version}"
+        compileOnly "org.projectlombok:lombok:${lombok_version}"
+        annotationProcessor "org.projectlombok:lombok:${lombok_version}"
         //testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }
