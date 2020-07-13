@@ -1,5 +1,6 @@
 package com.heyefu.login.controller;
 
+import com.heyefu.annotation.ServiceLog;
 import com.heyefu.error.ErrorCode;
 import com.heyefu.response.RestCode;
 import com.heyefu.user.entity.User;
@@ -30,6 +31,7 @@ public class LoginController {
     @GetMapping("login")
     @ApiOperation("用户登录")
     @ResponseBody
+    @ServiceLog(modules = "login",description = "user login")
     public RestCode login(User user) {
         Map<String, Object> result = new HashMap<>();
         if (user != null && "123456".equals(user.getPassword())) {

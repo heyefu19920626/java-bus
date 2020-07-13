@@ -11,8 +11,12 @@ buildscript {
         springBootVersion = '2.3.1.RELEASE'
     }
     repositories {
-        // maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
         mavenLocal()
+        maven { url = 'http://artifactory.cde.huawei.com/artifactory/maven-public/' }
+        // maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        // jcenter{
+        //     url 'http://jcenter.bintray.com'
+        // }
         mavenCentral()
     }
     dependencies {
@@ -71,6 +75,8 @@ subprojects {
         //举个例子，A依赖B，B依赖C，如果B依赖C是使用的implementation依赖，那么在A中是访问不到C中的方法的，
         //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile "org.springframework.boot:spring-boot-starter-web:${spring_version}"
+        // aop
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${spring_version}"
         compileOnly "org.projectlombok:lombok:${lombok_version}"
         annotationProcessor "org.projectlombok:lombok:${lombok_version}"
         //testImplementation 'org.springframework.boot:spring-boot-starter-test'
