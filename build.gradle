@@ -14,9 +14,7 @@ buildscript {
         mavenLocal()
         maven { url = 'http://artifactory.cde.huawei.com/artifactory/maven-public/' }
         // maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        // jcenter{
-        //     url 'http://jcenter.bintray.com'
-        // }
+        // jcenter { url 'http://jcenter.bintray.com' }
         mavenCentral()
     }
     dependencies {
@@ -33,6 +31,12 @@ allprojects {
     // jdk版本
     sourceCompatibility = 11
     targetCompatibility = 11
+
+    // 在项目级别排除所有依赖
+    configurations.all {
+        // exclude group: 'ch.qos.logback',module: 'logback-core'
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
 }
 
 // 根项目上采用配置注入的方式定义一些公共配置。根项目就像一个容器，子项目会迭代访问它的配置并注入到自己的配置中。
@@ -74,7 +78,10 @@ subprojects {
         //implementation是取代之前的compile的，通过implementation依赖的库只能自己库本身访问，
         //举个例子，A依赖B，B依赖C，如果B依赖C是使用的implementation依赖，那么在A中是访问不到C中的方法的，
         //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        // web
         compile "org.springframework.boot:spring-boot-starter-web:${spring_version}"
+        // log4j2
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: "${spring_version}"
         // aop
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${spring_version}"
         compileOnly "org.projectlombok:lombok:${lombok_version}"
