@@ -11,3 +11,8 @@ spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
     url: jdbc:sqlite:data/util.db
+    utildb:
+      jdbc-url: jdbc:sqlite:data/util.db
+    commondb:
+      #  不能使用url
+      jdbc-url: jdbc:sqlite:data/common.db
