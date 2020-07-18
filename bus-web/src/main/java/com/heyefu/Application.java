@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * Time: 下午1:55
  **/
 @SpringBootApplication(exclude = {
-        DataSourceAutoConfiguration.class
+    DataSourceAutoConfiguration.class
 })
 public class Application {
     public static void main(String[] args) {
@@ -20,7 +20,7 @@ public class Application {
     }
 
     public static void init() {
-        if (!DbInit.init()) {
+        if (!new DbInit().init()) {
             System.out.println("init db error");
             System.exit(0);
         }

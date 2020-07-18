@@ -1,11 +1,14 @@
 package com.heyefu.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,32 +27,23 @@ public class DbInit {
      */
     private static final String SQLITE_DRIVER = "org.sqlite.JDBC";
 
-    private static Connection con = null;
-
-    public static boolean init() {
+    public boolean init() {
         try {
+            FileUtils.forceMkdir(new File("data/database"));
             Class.forName(SQLITE_DRIVER);
             return initTable(getDbAndSql());
-        } catch (ClassNotFoundException e) {
-            log.error("load sqlite driver fail.", e);
+        } catch (ClassNotFoundException | IOException e) {
+            log.error("create db dir or load sqlite driver fail.", e);
             return false;
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                log.error("close sqlite connect error", e);
-            }
         }
     }
 
-    public static boolean initTable(Map<String, List<String>> dbMap) {
-        dbMap.forEach((id, sqls) -> {
-            try {
-                con = DriverManager.getConnection("jdbc:sqlite:data/" + id);
-                Statement stat = con.createStatement();
-                sqls.forEach(sql -> {
-                    try {
-                        stat.executeUpdate(sql);
+    public boolean initTable(Map<String, List<String>> dbMap) {
+        dbMap.forEach((id, sqlList) -> {
+            try (Connection con = DriverManager.getConnection("jdbc:sqlite:data/database/" + id)) {
+                sqlList.forEach(sql -> {
+                    try (PreparedStatement statement = con.prepareStatement(sql)) {
+                        statement.execute();
                     } catch (SQLException e) {
                         log.error("create table error.", e);
                     }

@@ -10,9 +10,9 @@ spring:
     default-property-inclusion: non_null
   datasource:
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:data/util.db
+    #    url: jdbc:sqlite:data/database/util.db
     utildb:
-      jdbc-url: jdbc:sqlite:data/util.db
+      jdbc-url: jdbc:sqlite:data/database/util.db
     commondb:
       #  不能使用url
-      jdbc-url: jdbc:sqlite:data/common.db
+      jdbc-url: jdbc:sqlite:data/database/common.db
