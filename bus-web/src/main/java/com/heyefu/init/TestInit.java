@@ -5,10 +5,14 @@
 package com.heyefu.init;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author h30002440
@@ -21,10 +25,12 @@ import org.springframework.stereotype.Component;
 public class TestInit implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        log.info("test read file start...");
         String sql = "";
         // jar包中不能使用文件方式读取，只能用流式读取
-        // String sql = FileUtils
-        //     .readFileToString(ResourceUtils.getFile("classpath:sql/user.sql"), StandardCharsets.UTF_8);
+        // sql = FileUtils.readFileToString(ResourceUtils.getFile("classpath:sql/user.sql"), StandardCharsets.UTF_8);
+        // ClassPathResource resource = new ClassPathResource("sql/user.sql");
+        // sql = FileUtils.readFileToString(resource.getFile(), StandardCharsets.UTF_8);
         log.info("read sql {}", sql);
     }
 }
