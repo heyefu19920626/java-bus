@@ -16,3 +16,8 @@ spring:
     commondb:
       #  不能使用url
       jdbc-url: jdbc:sqlite:data/database/common.db
+bus:
+  db:
+    basic: util, common
+    util: user.sql
+    common: common.sql
