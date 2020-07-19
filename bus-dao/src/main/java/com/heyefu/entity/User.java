@@ -1,4 +1,4 @@
-package com.heyefu.common;
+package com.heyefu.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +18,7 @@ import lombok.experimental.Tolerate;
 @Setter
 @Builder
 @ApiModel
-public class Common {
+public class User {
     @ApiModelProperty("用户id")
     private int id;
     @ApiModelProperty("用户名")
@@ -26,6 +26,6 @@ public class Common {
     @ApiModelProperty("密码")
     private String password;
     @Tolerate
-    public Common() {
+    public User() {
     }
 }

@@ -19,15 +19,16 @@ import javax.sql.DataSource;
  * @since 2020-07-18
  **/
 @Configuration
-@MapperScan(basePackages = {"com.heyefu.common"}, sqlSessionFactoryRef = "sqlSessionCommon")
-public class CommonConfig {
+@MapperScan(basePackages = {"com.heyefu.dao.common"}, sqlSessionFactoryRef = "sqlSessionCommon")
+public class CommonDataSource {
     /**
      * 返回data1数据库的数据源
+     * 主数据源
      *
-     * @return
+     * @return 数据源
      */
     @Bean(name = "commondb")
-    @Primary  //主数据源
+    @Primary
     @ConfigurationProperties(prefix = "spring.datasource.commondb")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
@@ -51,7 +52,7 @@ public class CommonConfig {
     /**
      * 返回data1数据库的事务
      *
-     * @param ds
+     * @param ds 事物
      */
     @Bean(name = "commondbTransactionManager")
     @Primary

@@ -33,9 +33,17 @@ import java.util.Objects;
 @Component
 @Slf4j
 public class DbInit implements CommandLineRunner {
+    /**
+     * sqlLite驱动
+     */
+    private static final String SQLITE_DRIVER = "org.sqlite.JDBC";
+
     @Value("${bus.db.basic}")
     private List<String> dbList;
 
+    /**
+     * spring boot配置文件
+     */
     @Resource
     private Environment environment;
 
@@ -48,11 +56,6 @@ public class DbInit implements CommandLineRunner {
             System.exit(0);
         }
     }
-
-    /**
-     * sqlLite驱动
-     */
-    private static final String SQLITE_DRIVER = "org.sqlite.JDBC";
 
     /**
      * 初始化数据库
@@ -95,7 +98,7 @@ public class DbInit implements CommandLineRunner {
             for (String tableFile : tableFiles) {
                 try (InputStream inputStream = this.getClass().getResourceAsStream("/sql/" + tableFile);
                      BufferedReader bufferedReader = new BufferedReader(
-                         new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+                             new InputStreamReader(inputStream, StandardCharsets.UTF_8))
                 ) {
                     StringBuilder result = new StringBuilder();
                     String line;

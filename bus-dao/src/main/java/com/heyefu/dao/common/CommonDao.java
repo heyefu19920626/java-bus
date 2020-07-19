@@ -1,5 +1,6 @@
-package com.heyefu.common;
+package com.heyefu.dao.common;
 
+import com.heyefu.entity.Common;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;

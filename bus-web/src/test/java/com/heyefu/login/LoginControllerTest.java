@@ -1,7 +1,7 @@
 package com.heyefu.login;
 
 import com.heyefu.login.controller.LoginController;
-import com.heyefu.user.entity.User;
+import com.heyefu.entity.User;
 import static org.hamcrest.Matchers.equalTo;
 import org.junit.Test;
 import org.junit.runner.RunWith;

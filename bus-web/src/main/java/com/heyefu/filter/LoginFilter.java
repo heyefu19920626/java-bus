@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heyefu.error.ErrorCode;
 import com.heyefu.response.RestCode;
-import com.heyefu.user.entity.User;
+import com.heyefu.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

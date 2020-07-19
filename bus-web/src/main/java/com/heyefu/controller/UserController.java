@@ -1,9 +1,9 @@
-package com.heyefu.user.controller;
+package com.heyefu.controller;
 
-import com.heyefu.common.Common;
-import com.heyefu.common.CommonDao;
-import com.heyefu.user.dao.UserDao;
-import com.heyefu.user.entity.User;
+import com.heyefu.dao.common.CommonDao;
+import com.heyefu.dao.user.UserDao;
+import com.heyefu.entity.Common;
+import com.heyefu.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,6 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class UserController {
-
     @Resource
     UserDao userDao;
 
@@ -48,5 +47,12 @@ public class UserController {
     @ApiOperation("获取所有common")
     public List<Common> getCommons() {
         return commonDao.selectAll();
+    }
+
+    @GetMapping
+    @ApiOperation("添加common")
+    public Common addCommon(Common common) {
+        commonDao.insert(common);
+        return common;
     }
 }

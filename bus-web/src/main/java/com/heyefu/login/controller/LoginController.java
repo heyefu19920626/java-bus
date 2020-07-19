@@ -1,9 +1,9 @@
 package com.heyefu.login.controller;
 
 import com.heyefu.annotation.ServiceLog;
+import com.heyefu.entity.User;
 import com.heyefu.error.ErrorCode;
 import com.heyefu.response.RestCode;
-import com.heyefu.user.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

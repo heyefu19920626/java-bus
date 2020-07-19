@@ -1,4 +1,4 @@
-package com.heyefu.user.entity;
+package com.heyefu.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,14 +18,15 @@ import lombok.experimental.Tolerate;
 @Setter
 @Builder
 @ApiModel
-public class User {
+public class Common {
     @ApiModelProperty("用户id")
     private int id;
     @ApiModelProperty("用户名")
     private String name;
     @ApiModelProperty("密码")
     private String password;
+
     @Tolerate
-    public User() {
+    public Common() {
     }
 }
