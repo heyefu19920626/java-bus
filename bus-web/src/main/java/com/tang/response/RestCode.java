@@ -17,11 +17,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RestCode {
-    @ApiModelProperty("错误码")
+    @ApiModelProperty(value = "错误码", example = "001")
     private int code;
-    @ApiModelProperty("错误消息")
+    @ApiModelProperty(value = "错误消息", example = "未认证")
     private String msg;
-    @ApiModelProperty("数据")
+    @ApiModelProperty(value = "数据")
     private Object data;
 
     public RestCode(ErrorCode code, Object data) {

@@ -19,11 +19,11 @@ import lombok.experimental.Tolerate;
 @Builder
 @ApiModel
 public class ServiceLog {
-    @ApiModelProperty("日志id")
+    @ApiModelProperty(value = "日志id", example = "1")
     private int id;
-    @ApiModelProperty("模块")
+    @ApiModelProperty(value = "所属模块", example = "login")
     private String module;
-    @ApiModelProperty("操作")
+    @ApiModelProperty(value = "操作名称", example = "登录")
     private String operate;
 
     @Tolerate

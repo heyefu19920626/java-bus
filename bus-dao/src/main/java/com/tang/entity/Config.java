@@ -19,9 +19,9 @@ import lombok.experimental.Tolerate;
 @Builder
 @ApiModel
 public class Config {
-    @ApiModelProperty("键值")
+    @ApiModelProperty(value = "键名", example = "key")
     private String key;
-    @ApiModelProperty("value")
+    @ApiModelProperty(value = "键值", example = "value")
     private String value;
 
     @Tolerate
