@@ -55,8 +55,13 @@ public class TestController {
 
     @GetMapping("log/all")
     @ApiOperation("获取所有日志")
-    public List<ServiceLog> getLogs() {
-        return logDao.selectAll();
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
+        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
+    })
+    public PageInfo<ServiceLog> getLogs(int page, int pageSize) {
+        PageHelper.startPage(page, pageSize);
+        return new PageInfo<>(logDao.selectAll());
     }
 
     @GetMapping("log/add")
