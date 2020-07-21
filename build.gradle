@@ -12,7 +12,7 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        // maven { url = 'http://artifactory.cde.huawei.com/artifactory/maven-public/' }
+        maven { url = 'http://artifactory.cde.huawei.com/artifactory/maven-public/' }
         // maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
         // jcenter { url 'http://jcenter.bintray.com' }
         mavenCentral()
@@ -67,7 +67,7 @@ subprojects {
         lang3_version = '3.10'
         lombok_version = '1.18.12'
         text_version = '1.8'
-        sqlite_version ='3.32.3.1'
+        sqlite_version = '3.32.3.1'
     }
     // 所有子模块共有依赖
     dependencies {
@@ -90,6 +90,10 @@ subprojects {
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: "${spring_version}"
         // spring aop
         compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${spring_version}"
+        // yaml提示
+        compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: "${spring_version}"
+        // pagehelper
+        compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.13'
         // lombok
         compileOnly "org.projectlombok:lombok:${lombok_version}"
         annotationProcessor "org.projectlombok:lombok:${lombok_version}"

@@ -1,10 +1,14 @@
 package com.tang.controller;
 
-import com.tang.dao.log.LogDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tang.dao.config.ConfigDao;
-import com.tang.entity.ServiceLog;
+import com.tang.dao.log.LogDao;
 import com.tang.entity.Config;
+import com.tang.entity.ServiceLog;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +43,14 @@ public class TestController {
 
     @GetMapping("config/all")
     @ApiOperation("获取所有配置")
-    public List<Config> getConfig() {
-        return configDao.selectAll();
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
+        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
+    })
+    public PageInfo<Config> getConfig(int page, int pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<Config> configs = configDao.selectAll();
+        return new PageInfo<>(configs);
     }
 
     @GetMapping("log/all")
