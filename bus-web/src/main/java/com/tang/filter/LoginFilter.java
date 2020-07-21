@@ -39,6 +39,8 @@ public class LoginFilter implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
         Object handler) throws Exception {
         // filter中使用@Value不能获取值
+        // Spring中，web应用启动的顺序是：listener->filter->servlet，先初始化listener，然后再来就filter的初始化，再接着才到我们的dispathServlet的初始化，因此，当我们需要在filter里注入一个注解的bean时，就会注入失败，因为filter初始化时，注解的bean还没初始化，没法注入。
+        // 简答理解：过滤器的生命优先级比较高，还没加载后面的bean之类的东西，spring无法帮你注入
         Environment environment =
             Objects.requireNonNull(WebApplicationContextUtils.getWebApplicationContext(request.getServletContext()))
                 .getBean(Environment.class);
