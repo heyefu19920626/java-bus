@@ -32,6 +32,9 @@ pagehelper:
 
 #自定义属性
 bus:
+  filter:
+    #    是否开启登录过滤
+    login: false
   db:
     basic: config,log
     config: config.sql
