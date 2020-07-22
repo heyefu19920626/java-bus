@@ -1,11 +1,11 @@
 package com.tang.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.tang.dao.config.ConfigDao;
 import com.tang.dao.log.LogDao;
 import com.tang.entity.Config;
 import com.tang.entity.ServiceLog;
+import com.tang.entity.common.MyPageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -47,10 +47,10 @@ public class TestController {
         @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
         @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
     })
-    public PageInfo<Config> getConfig(int page, int pageSize) {
+    public MyPageInfo<Config> getConfig(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
         List<Config> configs = configDao.selectAll();
-        return new PageInfo<>(configs);
+        return new MyPageInfo<>(configs);
     }
 
     @GetMapping("log/all")
@@ -59,9 +59,9 @@ public class TestController {
         @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
         @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
     })
-    public PageInfo<ServiceLog> getLogs(int page, int pageSize) {
+    public MyPageInfo<ServiceLog> getLogs(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
-        return new PageInfo<>(logDao.selectAll());
+        return new MyPageInfo<>(logDao.selectAll());
     }
 
     @GetMapping("log/add")
