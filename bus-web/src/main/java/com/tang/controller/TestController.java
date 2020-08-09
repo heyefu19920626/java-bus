@@ -70,4 +70,10 @@ public class TestController {
         logDao.insert(serviceLog);
         return serviceLog;
     }
+
+    @GetMapping("exception")
+    @ApiOperation("测试异常拦截")
+    public Object testException() throws Exception {
+        throw new Exception("test exception");
+    }
 }
