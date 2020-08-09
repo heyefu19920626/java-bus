@@ -1,4 +1,4 @@
-package com.tang.error;
+package com.tang.response;
 
 /**
  * 错误码

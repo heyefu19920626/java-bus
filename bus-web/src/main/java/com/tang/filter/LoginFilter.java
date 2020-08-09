@@ -3,8 +3,8 @@ package com.tang.filter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tang.entity.Config;
-import com.tang.error.ErrorCode;
-import com.tang.response.RestCode;
+import com.tang.response.ErrorCode;
+import com.tang.response.RestResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -75,7 +75,7 @@ public class LoginFilter implements HandlerInterceptor {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         try (PrintWriter writer = response.getWriter()) {
-            RestCode restCode = new RestCode(ErrorCode.ERROR, "未认证", null);
+            RestResponse<Objects> restCode = new RestResponse<>(ErrorCode.ERROR, "未认证");
             ObjectMapper mapper = new ObjectMapper();
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             String result = mapper.writeValueAsString(restCode);
