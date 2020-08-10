@@ -2,8 +2,8 @@ package com.tang.controller;
 
 import com.tang.annotation.ServiceLog;
 import com.tang.entity.Config;
-import com.tang.error.ErrorCode;
-import com.tang.response.RestCode;
+import com.tang.response.ErrorCode;
+import com.tang.response.RestResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -31,25 +31,25 @@ public class LoginController {
     @GetMapping("login")
     @ApiOperation("用户登录")
     @ResponseBody
-    @ServiceLog(modules = "login",description = "user login")
-    public RestCode login(Config config) {
+    @ServiceLog(modules = "login", description = "user login")
+    public RestResponse<Object> login(Config config) {
         Map<String, Object> result = new HashMap<>();
         if (config != null && "123456".equals(config.getValue())) {
             request.getSession().setAttribute("user", config);
             result.put("status", true);
-            return new RestCode(ErrorCode.SUCCESS, null, result);
+            return new RestResponse<>(result);
         }
         result.put("status", false);
-        return new RestCode(ErrorCode.FAIL, "用户名或密码错误", result);
+        return new RestResponse<>(ErrorCode.FAIL, "用户名或密码错误");
     }
 
     @GetMapping("logout")
     @ApiOperation("用户注销")
     @ResponseBody
-    public RestCode logout() {
+    public RestResponse<Object> logout() {
         request.getSession().removeAttribute("user");
         Map<String, Object> result = new HashMap<>(1);
         result.put("status", true);
-        return new RestCode(ErrorCode.SUCCESS, null, result);
+        return new RestResponse<>(result);
     }
 }
