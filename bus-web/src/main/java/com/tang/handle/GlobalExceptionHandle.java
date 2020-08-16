@@ -17,7 +17,7 @@ public class GlobalExceptionHandle {
 
     @ExceptionHandler(Exception.class)
     public RestResponse<String> handleException(Exception e) {
-        log.error(e.getMessage());
+        log.error("system error",e);
         return new RestResponse<>(ErrorCode.ERROR, "请求异常");
     }
 }

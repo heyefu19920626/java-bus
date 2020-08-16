@@ -6,6 +6,7 @@ import com.tang.dao.log.LogDao;
 import com.tang.entity.Config;
 import com.tang.entity.ServiceLog;
 import com.tang.entity.common.MyPageInfo;
+import com.tang.service.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,6 +30,9 @@ import java.util.List;
 public class TestController {
     @Resource
     ConfigDao configDao;
+
+    @Resource
+    TestService testService;
 
     @Resource
     LogDao logDao;
@@ -66,8 +70,10 @@ public class TestController {
 
     @GetMapping("log/add")
     @ApiOperation("添加日志")
-    public ServiceLog addLog(ServiceLog serviceLog) {
-        logDao.insert(serviceLog);
+    public ServiceLog addLog(ServiceLog serviceLog) throws Exception {
+        // logDao.insert(serviceLog);
+        System.out.println("------");
+        testService.insertLog();
         return serviceLog;
     }
 
