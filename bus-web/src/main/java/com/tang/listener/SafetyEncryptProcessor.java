@@ -42,9 +42,8 @@ public class SafetyEncryptProcessor implements EnvironmentPostProcessor {
                     if (value instanceof String) {
                         String str = (String) value;
                         //需要处理的value的前缀
-                        if (str.startsWith("pwd:")) {
-                            //此处的12345可自定义为对value的处理
-                            map.put(name, "decrypt: " + value);
+                        if (str.startsWith("encrypt:")) {
+                            map.put(name, decrypt(str));
                         }
                     }
                 }
@@ -54,5 +53,9 @@ public class SafetyEncryptProcessor implements EnvironmentPostProcessor {
         if (!map.isEmpty()) {
             environment.getPropertySources().addFirst(new MapPropertySource("prefixer", map));
         }
+    }
+
+    private String decrypt(String ciphertext) {
+        return ciphertext.substring(ciphertext.indexOf(":") + 1);
     }
 }

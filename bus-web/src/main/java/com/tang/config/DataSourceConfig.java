@@ -25,4 +25,10 @@ public class DataSourceConfig {
     // public DataSource buildCommon() {
     //     return DataSourceBuilder.create().build();
     // }
+
+    @Bean(name = "busDb")
+    @ConfigurationProperties(prefix = "spring.datasource.bus-db")
+    public DataSource buildBusDataSource() {
+        return DataSourceBuilder.create().build();
+    }
 }

@@ -14,6 +14,11 @@ spring:
     log-db:
       #  不能使用url
       jdbc-url: jdbc:sqlite:data/database/log.db
+    bus-db:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/java-bus
+      username: heyefu
+      password: encrypt:123456
 pagehelper:
   # 是否启用分页合理化。
   # 如果启用，当pagenum<1时，会自动查询第一页的数据，当pagenum>pages时，自动查询最后一页数据；
@@ -29,7 +34,7 @@ pagehelper:
 
 #自定义属性
 bus:
-  password: pwd:test
+  password: encrypt:test
   filter:
     #    是否开启登录过滤
     login: false

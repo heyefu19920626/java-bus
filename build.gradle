@@ -12,7 +12,7 @@ buildscript {
     }
     repositories {
         mavenLocal()
-       maven { url = 'http://artifactory.cde.huawei.com/artifactory/maven-public/' }
+        // maven { url = 'http://artifactory.cde.huawei.com/artifactory/maven-public/' }
         // maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
         // jcenter { url 'http://jcenter.bintray.com' }
         mavenCentral()
@@ -77,6 +77,8 @@ subprojects {
         compile group: 'commons-io', name: 'commons-io', version: '2.7'
         // sqlite数据库
         compile group: 'org.xerial', name: 'sqlite-jdbc', version: "${sqlite_version}"
+        // mysql数据库
+        compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
         // mybatis
         compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.3'
         // swagger接口文档，2.10开始支持两种模式：WebFlux，WebMVC,需要引入三个依赖
