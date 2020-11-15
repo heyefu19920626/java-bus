@@ -27,9 +27,9 @@ pagehelper:
 
 
 
-
 #自定义属性
 bus:
+  password: pwd:test
   filter:
     #    是否开启登录过滤
     login: false

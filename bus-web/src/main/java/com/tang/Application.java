@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
+ * 启动类
+ *
  * @author heyefu
  * Create in: 2020-07-12
  * Time: 下午1:55
@@ -14,6 +16,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 })
 public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication application = new SpringApplication(Application.class);
+        System.setProperty("server.port", "8080");
+        application.run(args);
     }
 }

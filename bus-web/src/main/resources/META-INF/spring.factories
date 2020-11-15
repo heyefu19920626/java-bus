@@ -1,0 +1,2 @@
+#将EnvironmentPostProcessor注册到文件META-INF/spring.factorie
+org.springframework.boot.env.EnvironmentPostProcessor=com.tang.listener.SafetyEncryptProcessor

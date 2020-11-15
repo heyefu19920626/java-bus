@@ -6,11 +6,13 @@ import com.tang.dao.log.LogDao;
 import com.tang.entity.Config;
 import com.tang.entity.ServiceLog;
 import com.tang.entity.common.MyPageInfo;
+import com.tang.response.RestResponse;
 import com.tang.service.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +38,9 @@ public class TestController {
 
     @Resource
     LogDao logDao;
+
+    @Value("${bus.password}")
+    String password;
 
     @GetMapping("config/add")
     @ResponseBody
@@ -81,5 +86,10 @@ public class TestController {
     @ApiOperation("测试异常拦截")
     public Object testException() throws Exception {
         throw new Exception("test exception");
+    }
+
+    @GetMapping("password")
+    public Object test() {
+        return new RestResponse<>(password);
     }
 }
