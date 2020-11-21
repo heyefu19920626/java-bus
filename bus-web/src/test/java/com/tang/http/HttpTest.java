@@ -10,6 +10,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpCoreContext;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.security.cert.*;
+import java.util.Set;
 
 /**
  * Http测试类
@@ -27,10 +30,11 @@ import java.security.cert.*;
  * @since 2020-11.21-20:04
  */
 public class HttpTest {
+    private static final Logger logger = LoggerFactory.getLogger(HttpTest.class);
 
     @Test
     public void test_https_url() throws IOException, CertificateException, CRLException {
-        URL url = new URL("https://www.heyefu.cn");
+        URL url = new URL("https://heyefu.cn/");
         System.out.println("---- use HttpsURLConnection ----");
         HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
         conn.connect();
@@ -43,7 +47,11 @@ public class HttpTest {
             // System.out.println("Certificate is: " + cert);
             if (cert instanceof X509Certificate) {
                 try {
-                    X509CRLEntry revokedCertificate = crl.getRevokedCertificate((X509Certificate) cert);
+                    X509Certificate x509Certificate = (X509Certificate) cert;
+                    X509CRLEntry revokedCertificate = crl.getRevokedCertificate(x509Certificate.getSerialNumber());
+                    if (revokedCertificate != null) {
+                        logger.error("this cert is revoked");
+                    }
                     System.out.println("revoke: " + revokedCertificate);
                     ((X509Certificate) cert).checkValidity();
                 } catch (CertificateExpiredException | CertificateNotYetValidException cee) {
@@ -56,10 +64,17 @@ public class HttpTest {
 
     private X509CRL getCrl() throws CertificateException, IOException, CRLException {
         CertificateFactory cf = CertificateFactory.getInstance("X509");
-        String crlPath = "/Users/tangan/Downloads/DigiCertGlobalRootCA.crl";
+        // String crlPath = "/Users/tangan/Downloads/DigiCertGlobalRootCA.crl";
+        // String crlPath = "/Users/tangan/Downloads/ssl/test.crl";
+        String crlPath = "/Users/tangan/Downloads/ssl/test.crl";
         X509CRL crl;
         try (InputStream in = new FileInputStream(new File(crlPath))) {
             crl = (X509CRL) cf.generateCRL(in);
+            final Set<? extends X509CRLEntry> revokedCertificates = crl.getRevokedCertificates();
+            System.out.println("revoke size: "+revokedCertificates.size());
+            revokedCertificates.forEach(cer->{
+                System.out.println(cer.getSerialNumber());
+            });
             return crl;
         }
     }
@@ -87,7 +102,8 @@ public class HttpTest {
         };
         // 自定义客户端，加入拦截器
         try (CloseableHttpClient httpClient = HttpClients.custom().addInterceptorFirst(interceptor).build()) {
-            HttpGet httpGet = new HttpGet("https://www.heyefu.cn");
+            // HttpGet httpGet = new HttpGet("https://www.heyefu.cn");
+            HttpGet httpGet = new HttpGet("https://127.0.0.1/");
             String responseBody = httpClient.execute(httpGet, httpResponse -> {
                 int status = httpResponse.getStatusLine().getStatusCode();
                 if (status < 200 || status >= 300) {
