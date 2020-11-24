@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.OriginTrackedMapPropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import java.util.HashMap;
 
@@ -35,8 +37,8 @@ public class SafetyEncryptProcessor implements EnvironmentPostProcessor {
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         HashMap<String, Object> map = new HashMap<>();
         for (PropertySource<?> ps : environment.getPropertySources()) {
-            if (ps instanceof OriginTrackedMapPropertySource) {
-                OriginTrackedMapPropertySource source = (OriginTrackedMapPropertySource) ps;
+            if (ps instanceof OriginTrackedMapPropertySource || ps instanceof SimpleCommandLinePropertySource) {
+                EnumerablePropertySource<?> source = (EnumerablePropertySource<?>) ps;
                 for (String name : source.getPropertyNames()) {
                     Object value = source.getProperty(name);
                     if (value instanceof String) {
