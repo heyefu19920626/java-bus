@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class Application {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(Application.class);
-        System.setProperty("server.port", "8080");
         application.run(args);
     }
 }

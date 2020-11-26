@@ -5,22 +5,24 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="userType" column="user_type" javaType="com.tang.enums.UserType" typeHandler="com.tang.enums.handle.CodeEnumTypeHandler"/>
+<!--        <result property="userType" column="user_type" javaType="com.tang.enums.UserType"/>-->
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
-        select id, `name`, pwd from `user` where id = #{id}
+        select id, `name`, pwd, user_type from `user` where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
-        select id, `name`, pwd from `user` limit #{offset}, #{limit}
+        select id, `name`, pwd, user_type from `user` limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="UserMap">
         select
-        id, `name`, pwd
+        id, `name`, pwd, user_type
         from `user`
         <where>
             <if test="id != null">
@@ -37,7 +39,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into `user`(`name`, pwd) values (#{name}, #{pwd})
+        insert into `user`(`name`, pwd, user_type) values (#{name}, #{pwd},
+        #{userType,jdbcType=INTEGER,typeHandler=com.tang.enums.handle.CodeEnumTypeHandler})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">

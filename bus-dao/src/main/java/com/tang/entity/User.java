@@ -1,5 +1,6 @@
 package com.tang.entity;
 
+import com.tang.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +22,14 @@ public class User implements Serializable {
     private String name;
 
     private String pwd;
+
+    private UserType userType;
+
+    // public int getUserType() {
+    //     return userType.getValue();
+    // }
+    //
+    // public void setUserType(int value) {
+    //     this.userType = UserType.getUserType(value);
+    // }
 }

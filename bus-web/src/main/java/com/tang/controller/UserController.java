@@ -20,7 +20,8 @@ public class UserController {
 
     @GetMapping("users")
     public RestResponse<List<User>> query() {
-        return new RestResponse<>(userDao.queryAll(null));
+        final List<User> users = userDao.queryAll(null);
+        return new RestResponse<>(users);
     }
 
     @GetMapping("user")
