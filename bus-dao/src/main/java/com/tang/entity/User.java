@@ -24,12 +24,4 @@ public class User implements Serializable {
     private String pwd;
 
     private UserType userType;
-
-    // public int getUserType() {
-    //     return userType.getValue();
-    // }
-    //
-    // public void setUserType(int value) {
-    //     this.userType = UserType.getUserType(value);
-    // }
 }

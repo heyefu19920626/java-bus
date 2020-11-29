@@ -59,7 +59,8 @@
         <!--这里设置单独包的级别，与ThresholdFilter冲突-->
         <logger level="debug" name="com.tang.dao">
             <!--只在控制台打印-->
-            <appender-ref ref="Console"/>
+            <!--加这个会打印两遍-->
+            <!--<appender-ref ref="Console"/>-->
         </logger>
         <!--这里设置总体级别-->
         <root level="info">
