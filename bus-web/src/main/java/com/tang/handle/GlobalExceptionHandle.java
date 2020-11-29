@@ -1,4 +1,4 @@
-package com.tang.enums.handle;
+package com.tang.handle;
 
 import com.tang.response.ErrorCode;
 import com.tang.response.RestResponse;

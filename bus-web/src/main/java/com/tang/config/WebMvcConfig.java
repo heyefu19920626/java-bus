@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.annotation.Resource;
 
 /**
+ * web配置器
+ *
  * @author tang
  * @since 2020-11.27-01:29
  */
@@ -19,6 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        // 注册spring的枚举转换
         registry.addConverterFactory(enumConvertFactory);
     }
 }

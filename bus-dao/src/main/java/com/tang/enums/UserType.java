@@ -1,11 +1,14 @@
 package com.tang.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 用户类型
  *
  * @author tang
  * @since 2020-11.27-00:48
  */
+@JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
 public enum UserType implements  BaseValueEnum{
     /**
      * 超级管理员
