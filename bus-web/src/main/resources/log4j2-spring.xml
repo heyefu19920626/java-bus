@@ -7,7 +7,7 @@
     <appenders>
         <!--这个输出控制台的配置-->
         <console name="Console" target="SYSTEM_OUT">
-            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
             <!--输出日志的格式-->
             <!--<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%5p] %m (%F:%L) [%t]%n"/>-->
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
@@ -56,9 +56,13 @@
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
         <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
-        <logger name="org.springframework" level="INFO"/>
-        <logger name="org.mybatis" level="INFO"/>
-        <root level="all">
+        <!--这里设置单独包的级别，与ThresholdFilter冲突-->
+        <logger level="debug" name="com.tang.dao">
+            <!--只在控制台打印-->
+            <appender-ref ref="Console"/>
+        </logger>
+        <!--这里设置总体级别-->
+        <root level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
