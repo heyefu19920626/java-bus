@@ -6,9 +6,10 @@ logging:
   level:
     com.tang.dao: debug
 mybatis:
-  #  启用做了吗？
-#  config-location: classpath:mybatis/mybatis-config.xml
-  typeHandlersPackage: com.tang.enums.handle
+  #  设置了多数据源的话就没用了，因为在启动类中排除了数据源自动配置
+  type-handlers-package: com.tang.enums.handle
+#  启用做了吗？
+#  config-location: classpath:/mybatis/mybatis-config.xml
 spring:
   jackson:
     default-property-inclusion: non_null

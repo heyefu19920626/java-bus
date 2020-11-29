@@ -5,8 +5,8 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
-        <result property="userType" column="user_type" javaType="com.tang.enums.UserType" typeHandler="com.tang.enums.handle.CodeEnumTypeHandler"/>
-<!--        <result property="userType" column="user_type" javaType="com.tang.enums.UserType"/>-->
+        <!--<result property="userType" column="user_type" javaType="com.tang.enums.UserType" typeHandler="com.tang.enums.handle.CodeEnumTypeHandler"/>-->
+        <result property="userType" column="user_type" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -40,7 +40,8 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into `user`(`name`, pwd, user_type) values (#{name}, #{pwd},
-        #{userType,jdbcType=INTEGER,typeHandler=com.tang.enums.handle.CodeEnumTypeHandler})
+        #{userType})
+<!--        #{userType,jdbcType=INTEGER,typeHandler=com.tang.enums.handle.CodeEnumTypeHandler})-->
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">

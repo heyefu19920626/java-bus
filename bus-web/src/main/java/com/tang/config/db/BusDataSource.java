@@ -1,6 +1,8 @@
 package com.tang.config.db;
 
+import com.tang.enums.handle.CodeEnumTypeHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -26,6 +28,11 @@ public class BusDataSource {
     public SqlSessionFactory sqlSessionBus() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
+        // factoryBean.setVfs(SpringBootVFS.class);
+        // 取得类型转换注册器
+        TypeHandlerRegistry typeHandlerRegistry = factoryBean.getObject().getConfiguration().getTypeHandlerRegistry();
+        // 注册默认枚举转换器
+        typeHandlerRegistry.setDefaultEnumTypeHandler(CodeEnumTypeHandler.class);
         return factoryBean.getObject();
     }
 
