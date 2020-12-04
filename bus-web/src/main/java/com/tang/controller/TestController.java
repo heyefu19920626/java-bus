@@ -2,6 +2,7 @@ package com.tang.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
+import com.tang.bean.Account;
 import com.tang.dao.config.ConfigDao;
 import com.tang.dao.log.LogDao;
 import com.tang.entity.Config;
@@ -90,6 +91,19 @@ public class TestController {
         log.info("user: {}", JSON.toJSON(user));
         log.info("filename: {}", file.getOriginalFilename());
         log.info("filesize: {} k", file.getSize() / 1024);
+        return new RestResponse<>(true);
+    }
+
+    @PostMapping("uploads")
+    public RestResponse<Object> uploadObject(Account account) {
+        log.info("user: {}, {}", account.getName(), account.getPassword());
+        log.info("user: {}", JSON.toJSON(account));
+        if (account.getFile() != null) {
+            log.info("filename: {}", account.getFile().getOriginalFilename());
+            log.info("filesize: {} k", account.getFile().getSize() / 1024);
+        } else {
+            log.info("file is null");
+        }
         return new RestResponse<>(true);
     }
 }

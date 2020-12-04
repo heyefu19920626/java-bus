@@ -13,6 +13,25 @@ Content-Type: application/json
 {"name": "tangan", "pwd": "pwd"}
 
 ###
+POST http://localhost:8090/test/uploads
+Content-Type: multipart/form-data; boundary=myapp
+
+--myapp
+Content-Disposition: form-data;name="file";filename="124"
+
+< /Users/tangan/Downloads/test.txt
+
+--myapp
+Content-Disposition: form-data;name="name"
+
+test-object-name
+
+--myapp
+Content-Disposition: form-data;name="password"
+
+test-object-pwd
+
+###
 
 GET http://127.0.0.1:8090/users
 Accept: application/json
