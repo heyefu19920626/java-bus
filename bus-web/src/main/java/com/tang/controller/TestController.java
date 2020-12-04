@@ -1,24 +1,25 @@
 package com.tang.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.tang.dao.config.ConfigDao;
 import com.tang.dao.log.LogDao;
 import com.tang.entity.Config;
 import com.tang.entity.ServiceLog;
+import com.tang.entity.User;
 import com.tang.entity.common.MyPageInfo;
 import com.tang.response.RestResponse;
-import com.tang.service.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,13 +29,11 @@ import java.util.List;
  **/
 @Api(tags = "测试接口")
 @RestController
+@Slf4j
 @RequestMapping("test")
 public class TestController {
     @Resource
     ConfigDao configDao;
-
-    @Resource
-    TestService testService;
 
     @Resource
     LogDao logDao;
@@ -53,8 +52,8 @@ public class TestController {
     @GetMapping("config/all")
     @ApiOperation("获取所有配置")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
-        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
+            @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
     })
     public MyPageInfo<Config> getConfig(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -65,31 +64,32 @@ public class TestController {
     @GetMapping("log/all")
     @ApiOperation("获取所有日志")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
-        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
+            @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
     })
     public MyPageInfo<ServiceLog> getLogs(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
         return new MyPageInfo<>(logDao.selectAll());
     }
 
-    @GetMapping("log/add")
-    @ApiOperation("添加日志")
-    public ServiceLog addLog(ServiceLog serviceLog) throws Exception {
-        // logDao.insert(serviceLog);
-        System.out.println("------");
-        testService.insertLog();
-        return serviceLog;
-    }
-
-    @GetMapping("exception")
-    @ApiOperation("测试异常拦截")
-    public Object testException() throws Exception {
-        throw new Exception("test exception");
-    }
-
     @GetMapping("password")
     public Object test() {
         return new RestResponse<>(password);
+    }
+
+    /**
+     * 测试同时上传文件和json
+     *
+     * @param user 用户，为json
+     * @param file 文件
+     * @return 上传结果
+     * @throws IOException 文件流异常
+     */
+    @PostMapping("upload")
+    public RestResponse<Object> upload(@RequestPart("user") User user, @RequestPart("file") MultipartFile file) throws IOException {
+        log.info("user: {}", JSON.toJSON(user));
+        log.info("filename: {}", file.getOriginalFilename());
+        log.info("filesize: {} k", file.getSize() / 1024);
+        return new RestResponse<>(true);
     }
 }
