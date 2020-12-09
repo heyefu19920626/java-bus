@@ -53,8 +53,8 @@ public class TestController {
     @GetMapping("config/all")
     @ApiOperation("获取所有配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
-            @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
+        @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
+        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
     })
     public MyPageInfo<Config> getConfig(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -65,8 +65,8 @@ public class TestController {
     @GetMapping("log/all")
     @ApiOperation("获取所有日志")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
-            @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
+        @ApiImplicitParam(name = "page", value = "当前页码", example = "1"),
+        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2")
     })
     public MyPageInfo<ServiceLog> getLogs(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -87,7 +87,8 @@ public class TestController {
      * @throws IOException 文件流异常
      */
     @PostMapping("upload")
-    public RestResponse<Object> upload(@RequestPart("user") User user, @RequestPart("file") MultipartFile file) throws IOException {
+    public RestResponse<Object> upload(@RequestPart("user") User user,
+        @RequestPart("file") MultipartFile file) throws IOException {
         log.info("user: {}", JSON.toJSON(user));
         log.info("filename: {}", file.getOriginalFilename());
         log.info("filesize: {} k", file.getSize() / 1024);
@@ -95,6 +96,10 @@ public class TestController {
     }
 
     @PostMapping("uploads")
+    @ApiImplicitParams({
+        // 有时候对象内部的文件在swagger中上传时为null，需要设置dataType为__file,name值为对象的属性名称
+        @ApiImplicitParam(name = "file", paramType = "form", dataType = "__file")
+    })
     public RestResponse<Object> uploadObject(Account account) {
         log.info("user: {}, {}", account.getName(), account.getPassword());
         log.info("user: {}", JSON.toJSON(account));
