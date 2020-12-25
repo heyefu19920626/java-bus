@@ -24,7 +24,7 @@ public class GlobalExceptionHandle {
 
     @ExceptionHandler(BindException.class)
     public RestResponse<String> handleException(BindException e) {
-        log.error("{} request param error.", request.getRequestURI(), e);
+        log.error("{} request param error.", request.getRequestURI());
         FieldError fieldError = e.getFieldErrors().get(0);
         return new RestResponse<>(ErrorCode.FAIL, fieldError.getField() + ":" + fieldError.getDefaultMessage());
     }
