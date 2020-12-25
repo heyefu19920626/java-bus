@@ -29,7 +29,7 @@ public enum UserType implements BaseValueEnum {
 
     private final int value;
 
-    private String name;
+    private final String name;
 
     UserType(int value, String name) {
         this.value = value;

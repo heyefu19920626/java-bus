@@ -3,10 +3,12 @@ package com.tang.controller;
 import com.tang.dao.user.UserDao;
 import com.tang.entity.User;
 import com.tang.response.RestResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.tang.valid.AddValid;
+import com.tang.valid.UpdateValid;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,23 +18,33 @@ import java.util.List;
  * @since 2020-11.15-17:11
  */
 @RestController
+@Api(tags = "用户管理")
+@RequestMapping("user")
 public class UserController {
     @Resource
     UserDao userDao;
 
-    @GetMapping("users")
+    @GetMapping("list")
     public RestResponse<List<User>> query() {
         final List<User> users = userDao.queryAll(null);
         return new RestResponse<>(users);
     }
 
     @GetMapping("user")
-    public RestResponse<Integer> addUser(User user) {
+    @ApiOperation("添加用户")
+    public RestResponse<Integer> addUser(@Validated({AddValid.class}) User user) {
         int result = userDao.insert(user);
         return new RestResponse<>(result);
     }
 
+    @PostMapping("update")
+    @ApiOperation("更新用户")
+    public RestResponse<Integer> updateUser(@Validated({UpdateValid.class}) User user) {
+        return new RestResponse<>(userDao.update(user));
+    }
+
     @PostMapping("user")
+    @ApiOperation("添加用户")
     public RestResponse<Integer> addUserJson(@RequestBody User user) {
         int result = userDao.insert(user);
         return new RestResponse<>(result);
