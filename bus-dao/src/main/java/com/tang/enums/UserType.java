@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @author tang
  * @since 2020-11.27-00:48
  */
-public enum UserType implements BaseValueEnum {
+public enum UserType implements BaseValueEnum<UserType> {
     /**
      * 超级管理员
      */
@@ -38,6 +38,16 @@ public enum UserType implements BaseValueEnum {
     @Override
     public int getValue() {
         return this.value;
+    }
+
+    @Override
+    public UserType getDefault() {
+        return MEMBER;
+    }
+
+    @Override
+    public String getDesc() {
+        return name;
     }
 
     /**
@@ -76,8 +86,6 @@ public enum UserType implements BaseValueEnum {
         }
         return MEMBER;
     }
-
-
 
     @Override
     public String toString() {

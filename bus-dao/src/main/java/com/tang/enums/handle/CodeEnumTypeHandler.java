@@ -1,7 +1,6 @@
 package com.tang.enums.handle;
 
 import com.tang.enums.BaseValueEnum;
-import com.tang.enums.UserType;
 import com.tang.util.CodeEnumUtil;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -13,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 枚举转换处理器
+ * mybatis枚举转换处理器
  *
  * @author tang
  * @since 2020-11.27-01:06
  */
-@MappedTypes({UserType.class})
+@MappedTypes({BaseValueEnum.class})
 public class CodeEnumTypeHandler<E extends Enum<?> & BaseValueEnum> extends BaseTypeHandler<BaseValueEnum> {
     private Class<E> type;
 
@@ -53,7 +52,7 @@ public class CodeEnumTypeHandler<E extends Enum<?> & BaseValueEnum> extends Base
         return cs.wasNull() ? null : codeOf(code);
     }
 
-    private E codeOf(int code){
+    private E codeOf(int code) {
         try {
             return CodeEnumUtil.codeOf(type, code);
         } catch (Exception ex) {
