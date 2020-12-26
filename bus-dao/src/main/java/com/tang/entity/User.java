@@ -3,6 +3,7 @@ package com.tang.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.tang.enums.UserType;
 import com.tang.enums.handle.EnumCovert;
+import com.tang.util.EncryptUtil;
 import com.tang.valid.AddValid;
 import com.tang.valid.UpdateValid;
 import lombok.Getter;
@@ -35,4 +36,20 @@ public class User implements Serializable {
     @JSONField(serializeUsing = EnumCovert.class)
     @NotNull(groups = AddValid.class)
     private UserType userType;
+
+    public String getPwd() {
+        return EncryptUtil.decrypt(pwd);
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = EncryptUtil.encrypt(pwd);
+    }
+
+    public void setPwdCiphertext(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getPwdCiphertext() {
+        return pwd;
+    }
 }

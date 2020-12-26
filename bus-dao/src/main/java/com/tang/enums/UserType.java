@@ -1,6 +1,5 @@
 package com.tang.enums;
 
-import com.alibaba.fastjson.annotation.JSONCreator;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -59,9 +58,7 @@ public enum UserType implements BaseValueEnum {
      * @param value 值
      * @return 枚举值
      */
-    @JsonCreator
-    @JSONCreator
-    public static UserType getUserType(int value) {
+    public static UserType covertUserType(int value) {
         for (UserType userType : UserType.values()) {
             if (userType.getValue() == value) {
                 return userType;
@@ -69,6 +66,17 @@ public enum UserType implements BaseValueEnum {
         }
         return MEMBER;
     }
+
+    @JsonCreator
+    public static UserType covertUserType(String name) {
+        for (UserType userType : UserType.values()) {
+            if (userType.getName().equals(name)) {
+                return userType;
+            }
+        }
+        return MEMBER;
+    }
+
 
 
     @Override
