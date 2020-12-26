@@ -30,11 +30,10 @@ public class UserController {
         return new RestResponse<>(users);
     }
 
-    @GetMapping("user")
+    @PostMapping("add")
     @ApiOperation("添加用户")
     public RestResponse<Integer> addUser(@Validated({AddValid.class}) User user) {
-        int result = userDao.insert(user);
-        return new RestResponse<>(result);
+        return insertUser(user);
     }
 
     @PostMapping("update")
@@ -43,9 +42,26 @@ public class UserController {
         return new RestResponse<>(userDao.update(user));
     }
 
+    /**
+     * 参数为list的时候，必须带有@RequestParam注解，而且前台传递的不能为空
+     *
+     * @param ids id列表
+     * @return 影响行数
+     */
+    @PostMapping("delete")
+    @ApiOperation("根据id列表删除用户")
+    public RestResponse<Integer> deleteUser(@RequestParam("ids") List<Integer> ids) {
+        Integer result = ids.stream().map(id -> userDao.deleteById(id)).reduce(Integer::sum).orElse(0);
+        return new RestResponse<>(result);
+    }
+
     @PostMapping("user")
     @ApiOperation("添加用户")
     public RestResponse<Integer> addUserJson(@RequestBody User user) {
+        return insertUser(user);
+    }
+
+    private RestResponse<Integer> insertUser(@RequestBody User user) {
         int result = userDao.insert(user);
         return new RestResponse<>(result);
     }

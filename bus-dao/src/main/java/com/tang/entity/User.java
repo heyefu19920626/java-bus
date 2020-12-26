@@ -1,11 +1,13 @@
 package com.tang.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tang.enums.UserType;
 import com.tang.enums.handle.EnumCovert;
 import com.tang.util.EncryptUtil;
 import com.tang.valid.AddValid;
 import com.tang.valid.UpdateValid;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,10 +47,25 @@ public class User implements Serializable {
         this.pwd = EncryptUtil.encrypt(pwd);
     }
 
+    /**
+     * mybatis使用
+     *
+     * @param pwd 密文
+     */
     public void setPwdCiphertext(String pwd) {
         this.pwd = pwd;
     }
 
+    /**
+     * mybatis使用
+     * <p>
+     * 使用@JsonIgnore会使返回前台的属性不包含这个，也可以使swagger的json参数示例中不包含这个
+     * 使用@ApiModelProperty(hidden = true)可以使swagger的json和表单参数都不包含这个
+     *
+     * @return 密文
+     */
+    @ApiModelProperty(hidden = true)
+    @JsonIgnore
     public String getPwdCiphertext() {
         return pwd;
     }
