@@ -6,6 +6,7 @@ import com.tang.enums.UserType;
 import com.tang.enums.handle.EnumCovert;
 import com.tang.util.EncryptUtil;
 import com.tang.valid.AddValid;
+import com.tang.valid.CheckUser;
 import com.tang.valid.UpdateValid;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -23,6 +24,8 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@CheckUser(pwd = "pwd", groups = {AddValid.class})
+@CheckUser(pwd = "name", groups = {AddValid.class}, message = "用户名长度不能小于9")
 public class User implements Serializable {
     private static final long serialVersionUID = 313871532794545014L;
 

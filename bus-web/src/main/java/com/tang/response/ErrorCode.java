@@ -11,7 +11,7 @@ public enum ErrorCode {
     /**
      * 成功
      */
-    SUCCESS(0),
+    SUCCESS(200),
     /**
      * 失败
      */
@@ -19,7 +19,11 @@ public enum ErrorCode {
     /**
      * 错误
      */
-    ERROR(3);
+    ERROR(401),
+    /**
+     * 参数错误
+     */
+    PARAM_ERROR(10001);
 
     private int code;
 

@@ -57,11 +57,11 @@ public class UserController {
 
     @PostMapping("user")
     @ApiOperation("添加用户")
-    public RestResponse<Integer> addUserJson(@RequestBody User user) {
+    public RestResponse<Integer> addUserJson(@Validated({AddValid.class}) @RequestBody User user) {
         return insertUser(user);
     }
 
-    private RestResponse<Integer> insertUser(@RequestBody User user) {
+    private RestResponse<Integer> insertUser(User user) {
         int result = userDao.insert(user);
         return new RestResponse<>(result);
     }
