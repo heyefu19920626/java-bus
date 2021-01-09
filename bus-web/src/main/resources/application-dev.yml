@@ -11,6 +11,10 @@ mybatis:
 #  启用做了吗？
 #  config-location: classpath:/mybatis/mybatis-config.xml
 spring:
+  security:
+    user:
+      name: root
+      password: 123456
   jackson:
     default-property-inclusion: non_null
   datasource:
