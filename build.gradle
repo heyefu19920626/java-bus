@@ -122,15 +122,6 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
-// 在Gradle中jar包通常被发布到某个仓库中。下面将jar包发布到本地目录。也可以发布到远程仓库或多个远程仓库中。
-// uploadArchives {
-//     repositories {
-//         flatDir {
-//             dirs 'repos'
-//         }
-//     }
-// }
-
 // 构建命令说明
 // build 构建整个项目
 // clean 删除 build 目录以及所有构建完成的文件。
