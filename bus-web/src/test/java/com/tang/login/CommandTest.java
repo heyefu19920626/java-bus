@@ -21,7 +21,7 @@ public class CommandTest {
         System.out.println(System.getProperty("user.home"));
     }
 
-    @Test
+    @Test(expected = IOException.class)
     public void command() throws IOException {
         // 实际的命令是/bin/bash -c "echo $PATH"
         // String commands[] = {"/bin/bash", "-c", "echo $PATH"};
