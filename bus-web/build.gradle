@@ -21,11 +21,25 @@ repositories {
     }
 }
 
+ext {
+    power_mock_version = '2.0.9'
+}
+
 dependencies {
     implementation project(":bus-dao")
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('com.alibaba.testable:testable-all:0.7.1')
+    testAnnotationProcessor('com.alibaba.testable:testable-processor:0.7.1')
+    // https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4
+    testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: "${power_mock_version}"
+    // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito2
+    testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: "${power_mock_version}"
+    // https://mvnrepository.com/artifact/org.powermock/powermock-reflect
+    testImplementation group: 'org.powermock', name: 'powermock-reflect', version: "${power_mock_version}"
+
 }
 
 test {
     useJUnitPlatform()
+    // jvmArgs "-javaagent:${classpath.find { it.name.contains("testable-agent") }.absolutePath}"
 }
