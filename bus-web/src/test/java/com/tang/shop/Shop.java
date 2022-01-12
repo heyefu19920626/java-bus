@@ -1,5 +1,6 @@
 package com.tang.shop;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,5 +23,10 @@ public class Shop {
         items.addAll(ids.stream().map(ItemDao::getItemById).filter(Optional::isPresent).map(Optional::get).collect(
             Collectors.toList()));
         return new ArrayList<>(items);
+    }
+
+    public boolean isExit(String path) {
+        File file = new File(path);
+        return file.exists();
     }
 }

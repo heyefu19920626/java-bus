@@ -36,7 +36,8 @@ dependencies {
     testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: "${power_mock_version}"
     // https://mvnrepository.com/artifact/org.powermock/powermock-reflect
     testImplementation group: 'org.powermock', name: 'powermock-reflect', version: "${power_mock_version}"
-
+    // https://mvnrepository.com/artifact/org.powermock/powermock-module-testng
+    testImplementation group: 'org.powermock', name: 'powermock-module-testng', version: '2.0.9'
 }
 
 test {

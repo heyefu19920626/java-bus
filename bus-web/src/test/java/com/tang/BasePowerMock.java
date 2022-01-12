@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.powermock.modules.testng.PowerMockTestCase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,5 +18,5 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 // Springboot需要添加下面两个注解
 @PowerMockRunnerDelegate(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class BasePowerMock {
+public class BasePowerMock extends PowerMockTestCase {
 }
