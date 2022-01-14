@@ -29,7 +29,6 @@ public class ShopTest {
     // 静态方法的模拟要使用原类
     @PrepareForTest(ItemDao.class)
     public void test_use_power_mock_static() {
-        System.out.println(shop);
         PowerMockito.mockStatic(ItemDao.class);
         // 只注释下面这一句不管用,参数不影响，该方法全部返回空
         PowerMockito.when(ItemDao.getItemById("0")).thenReturn(Optional.empty());
@@ -46,6 +45,7 @@ public class ShopTest {
         PowerMockito.whenNew(File.class).withAnyArguments().thenReturn(file);
         PowerMockito.when(file.exists()).thenReturn(true);
         Assertions.assertTrue(shop.isExit("abcde"));
+        Assertions.assertTrue(new Shop().isExit("abcde"));
     }
 
 
@@ -58,9 +58,14 @@ public class ShopTest {
     }
 
     @Test
-    public void test_use_test_mock() {
+    public void test_use_test_mock() throws InterruptedException {
         Shop shop = new Shop();
         final List<String> items = shop.getItems("1");
         Assert.assertEquals(items.size(), 0);
+        int i = 0;
+        while (i < 3) {
+            Thread.sleep(1000);
+            i--;
+        }
     }
 }
