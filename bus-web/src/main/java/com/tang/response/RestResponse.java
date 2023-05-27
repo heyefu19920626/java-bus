@@ -1,7 +1,5 @@
 package com.tang.response;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,15 +10,11 @@ import lombok.Setter;
  * Create in: 2020-07-12
  * Time: 下午9:56
  **/
-@ApiModel
 @Getter
 @Setter
 public class RestResponse<T> {
-    @ApiModelProperty(value = "错误码", example = "001")
     private int code;
-    @ApiModelProperty(value = "错误消息", example = "未认证")
     private String msg;
-    @ApiModelProperty(value = "数据")
     private T data;
 
     /**

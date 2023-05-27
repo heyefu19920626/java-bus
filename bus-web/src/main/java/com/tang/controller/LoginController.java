@@ -4,8 +4,6 @@ import com.tang.annotation.ServiceLog;
 import com.tang.entity.Config;
 import com.tang.response.ErrorCode;
 import com.tang.response.RestResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +21,11 @@ import java.util.Map;
  **/
 @Controller
 @Slf4j
-@Api(tags = "登录管理")
 public class LoginController {
     @Resource
     HttpServletRequest request;
 
     @GetMapping("login")
-    @ApiOperation("用户登录")
     @ResponseBody
     @ServiceLog(modules = "login", description = "user login")
     public RestResponse<Object> login(Config config) {
@@ -44,7 +40,6 @@ public class LoginController {
     }
 
     @GetMapping("logout")
-    @ApiOperation("用户注销")
     @ResponseBody
     public RestResponse<Object> logout() {
         request.getSession().removeAttribute("user");

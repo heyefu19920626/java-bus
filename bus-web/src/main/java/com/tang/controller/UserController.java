@@ -5,8 +5,6 @@ import com.tang.entity.User;
 import com.tang.response.RestResponse;
 import com.tang.valid.AddValid;
 import com.tang.valid.UpdateValid;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +21,6 @@ import java.util.List;
  * @since 2020-11.15-17:11
  */
 @RestController
-@Api(tags = "用户管理")
 @RequestMapping("user")
 public class UserController {
     @Resource
@@ -36,13 +33,11 @@ public class UserController {
     }
 
     @PostMapping("add")
-    @ApiOperation("添加用户")
     public RestResponse<Integer> addUser(@Validated({AddValid.class}) User user) {
         return insertUser(user);
     }
 
     @PostMapping("update")
-    @ApiOperation("更新用户")
     public RestResponse<Integer> updateUser(@Validated({UpdateValid.class}) User user) {
         return new RestResponse<>(userDao.update(user));
     }
@@ -54,14 +49,12 @@ public class UserController {
      * @return 影响行数
      */
     @PostMapping("delete")
-    @ApiOperation("根据id列表删除用户")
     public RestResponse<Integer> deleteUser(@RequestParam("ids") List<Integer> ids) {
         Integer result = ids.stream().map(id -> userDao.deleteById(id)).reduce(Integer::sum).orElse(0);
         return new RestResponse<>(result);
     }
 
     @PostMapping("user")
-    @ApiOperation("添加用户")
     public RestResponse<Integer> addUserJson(@Validated({AddValid.class}) @RequestBody User user) {
         return insertUser(user);
     }

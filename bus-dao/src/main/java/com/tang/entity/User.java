@@ -8,7 +8,6 @@ import com.tang.util.EncryptUtil;
 import com.tang.valid.AddValid;
 import com.tang.valid.CheckUser;
 import com.tang.valid.UpdateValid;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -67,7 +66,6 @@ public class User implements Serializable {
      *
      * @return 密文
      */
-    @ApiModelProperty(hidden = true)
     @JsonIgnore
     public String getPwdCiphertext() {
         return pwd;

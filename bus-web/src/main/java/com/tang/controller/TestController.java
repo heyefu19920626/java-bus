@@ -10,13 +10,14 @@ import com.tang.entity.ServiceLog;
 import com.tang.entity.User;
 import com.tang.entity.common.MyPageInfo;
 import com.tang.response.RestResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -28,7 +29,6 @@ import java.util.List;
  * Create in: 2020-07-12
  * Time: 下午3:24
  **/
-@Api(tags = "测试接口")
 @RestController
 @Slf4j
 @RequestMapping("test")
@@ -44,18 +44,12 @@ public class TestController {
 
     @GetMapping("config/add")
     @ResponseBody
-    @ApiOperation("添加配置")
     public Config addConfig(Config config) {
         configDao.insert(config);
         return config;
     }
 
     @GetMapping("config/all")
-    @ApiOperation("获取所有配置")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "当前页码", example = "1", dataTypeClass = int.class),
-        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2", dataTypeClass = int.class)
-    })
     public MyPageInfo<Config> getConfig(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
         List<Config> configs = configDao.selectAll();
@@ -63,11 +57,6 @@ public class TestController {
     }
 
     @GetMapping("log/all")
-    @ApiOperation("获取所有日志")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "当前页码", example = "1", dataTypeClass = int.class),
-        @ApiImplicitParam(name = "pageSize", value = "每页数量", example = "2", dataTypeClass = int.class)
-    })
     public MyPageInfo<ServiceLog> getLogs(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
         return new MyPageInfo<>(logDao.selectAll());
@@ -95,11 +84,6 @@ public class TestController {
     }
 
     @PostMapping("uploads")
-    @ApiImplicitParams({
-        // 有时候对象内部的文件在swagger中上传时为null，需要设置dataType为__file,name值为对象的属性名称
-        @ApiImplicitParam(name = "file", paramType = "form", dataType = "__file", dataTypeClass =
-            MultipartFile.class)
-    })
     public RestResponse<Object> uploadObject(Account account) {
         log.info("user: {}, {}", account.getName(), account.getPassword());
         log.info("user: {}", JSON.toJSON(account));
