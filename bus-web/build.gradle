@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.tang'
 version = '1.0'
-sourceCompatibility = 11
+sourceCompatibility = 17
 
 configurations {
     compileOnly {
@@ -16,14 +16,14 @@ configurations {
 
 repositories {
     maven {
-        url "http://maven.aliyun.com/nexus/content/groups/public"
+        url 'https://maven.aliyun.com/repository/public/'
         allowInsecureProtocol = true
     }
 }
 
 ext {
     power_mock_version = '2.0.9'
-    testable_version = '0.7.3'
+    testable_version = '0.7.9'
 }
 
 dependencies {
